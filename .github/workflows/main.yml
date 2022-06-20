@@ -8,8 +8,8 @@ on:
   push:
     tags:
     - 'v*'
-  #schedule:
-  #  - cron: '0 0 8-18 * * 1-6'
+  schedule:
+    - cron: '0 8-18 * * 1-6'
   watch:
     types: [started]
   #push:
