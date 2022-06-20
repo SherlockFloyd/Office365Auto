@@ -16,6 +16,7 @@ gh_repo=os.getenv('GH_REPO')
 Auth=r'token '+gh_token
 geturl=r'https://api.github.com/repos/'+gh_repo+r'/actions/secrets/public-key'
 #puturl=r'https://api.github.com/repos/'+gh_repo+r'/actions/secrets/MS_TOKEN'
+
 key_id='fengshaopeng'
 
 #公钥获取
