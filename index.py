@@ -165,22 +165,28 @@ class api(object):
             "Office365API调用存在失败情况，失败个数为{}，成功个数为{}。调用结束时间为{}".format(
                 i, a, local_time)
 
-        body = {
-            "appToken": os.getenv("appToken"),
-            # 信息内容
-            "content": "Office365API调用存在失败情况，\n失败个数为{}，成功个数为{}。\n调用结束时间为{}。\n若非本人操作请尽快登录腾讯云服务器进行查看管理。\n腾讯云管理链接如下。".format(i, a, local_time),
-            "summary": config_list['summary'],
-            "contentType": int(config_list['contentType']),
-            # "topicIds": config['topicIds'],
-            "uids": [os.getenv("UID")],
-            "url": os.getenv("url")
+#         body = {
+#             "appToken": os.getenv("appToken"),
+#             # 信息内容
+#             "content": "Office365API调用存在失败情况，\n失败个数为{}，成功个数为{}。\n调用结束时间为{}。\n若非本人操作请尽快登录腾讯云服务器进行查看管理。\n腾讯云管理链接如下。".format(i, a, local_time),
+#             "summary": config_list['summary'],
+#             "contentType": int(config_list['contentType']),
+#             # "topicIds": config['topicIds'],
+#             "uids": [os.getenv("UID")],
+#             "url": os.getenv("url")
+#         }
+        content = "Office365AutoAPI调用存在异常情况！\n调用总数：< font color =\"warning\"> 14 < /font >\n成功个数：< font color =\"warning\"> {} < /font >\n失败个数：< font color =\"warning\"> {} < /font >\n调用时间：< font color =\"warning\"> {} < /font >".format(a, i, local_time)
+        data = {
+            "msgtype": "markdown",
+            "markdown": {
+                "content": content
+            }
         }
 
         urla = os.getenv("url_wechat")
         requests.get(barkurl)
         s = requests.session()
-        s.post(urla, headers=self.header_wechar,
-               data=json.dumps(body), verify=False)
+        s.post(urla,data=json.dumps(data), verify=False)
 
     def run(self):
         # 实际运行
