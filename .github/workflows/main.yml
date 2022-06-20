@@ -39,11 +39,11 @@ jobs:
         CLIENT_ID: ${{ secrets.CLIENT_ID }}
         CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
         #发送信息
-        #url_bark: ${{ secrets.url_bark }}
-        #url_wechat: ${{ url_wechat }}
-        #url: ${{ url }}
-        #appToken: ${{ appToken }}
-        #UID: ${{ UID }}
+        url_bark: ${{ secrets.URL_BARK }}
+        url_wechat: ${{ secrets.URL_WECHAT }}
+        url: ${{ secrets.URL }}
+        appToken: ${{ secrets.APPTOKEN }}
+        UID: ${{ secrets.UID }}
         #topicIds: ${{ topicIds }}
       run: |
         python index1.py
