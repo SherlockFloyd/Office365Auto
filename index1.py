@@ -219,7 +219,8 @@ class api(object):
 
         f2 = Foo()
         if f2.count != 0:
-            self.sendmessage(f2.count)
+            #self.sendmessage(f2.count)
+            pass
 
 
 # def main_handler(event, context):
