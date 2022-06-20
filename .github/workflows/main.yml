@@ -46,6 +46,6 @@ jobs:
         UID: ${{ secrets.UID }}
         #topicIds: ${{ topicIds }}
       run: |
-        python index1.py
+        python index.py
 
     # Steps represent a sequence of tasks that will be executed as part of the job
