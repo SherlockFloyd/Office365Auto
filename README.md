@@ -165,7 +165,7 @@ CLIENT_SECRET_2
 
 #### 超级参数设置
 
-runapi.py 文件第 11 行有个 config_list，里面是以下参数配置
+index.py 文件开头有个 config_list，里面是以下参数配置
 
 · 轮数：
 
