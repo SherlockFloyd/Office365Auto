@@ -175,7 +175,7 @@ class api(object):
 #             "uids": [os.getenv("UID")],
 #             "url": os.getenv("url")
 #         }
-        content = "Office365AutoAPI调用存在异常情况！\n调用总数：< font color =\"warning\"> 14 < /font >\n成功个数：< font color =\"warning\"> {} < /font >\n失败个数：< font color =\"warning\"> {} < /font >\n调用时间：< font color =\"warning\"> {} < /font >".format(a, i, local_time)
+        content = "Office365AutoAPI调用存在异常情况！\n调用总数：< font color =\"warning\"> 12 < /font >\n成功个数：< font color =\"warning\"> {} < /font >\n失败个数：< font color =\"warning\"> {} < /font >\n调用时间：< font color =\"warning\"> {} < /font >".format(a, i, local_time)
         data = {
             "msgtype": "markdown",
             "markdown": {
