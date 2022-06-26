@@ -9,7 +9,8 @@ import random
 
 global access_token_list
 
-app_num = os.getenv("APP_NUM")
+# app_num = os.getenv("APP_NUM")
+app_num = 1  # 单账号模式
 if app_num == '':
     app_num = '1'
 access_token_list = ['fengshaopeng']*int(app_num)
@@ -132,18 +133,18 @@ class api(object):
         # 一次性获取access_token，降低获取率
         for a in range(1, int(app_num)+1):
 
-            if a == 1:
-                client_id = os.getenv('CLIENT_ID')
-                client_secret = os.getenv('CLIENT_SECRET')
-                ms_token = os.getenv('MS_TOKEN')
-                access_token_list[a-1] = self.getmstoken(
-                    client_id, client_secret, ms_token)
-            else:
-                client_id = os.getenv('CLIENT_ID_'+str(a))
-                client_secret = os.getenv('CLIENT_SECRET_'+str(a))
-                ms_token = os.getenv('MS_TOKEN_'+str(a))
-                access_token_list[a-1] = self.getmstoken(
-                    client_id, client_secret, ms_token)
+#             if a == 1:
+            client_id = os.getenv('CLIENT_ID')
+            client_secret = os.getenv('CLIENT_SECRET')
+            ms_token = os.getenv('MS_TOKEN')
+            access_token_list[a-1] = self.getmstoken(
+                client_id, client_secret, ms_token)
+#             else:
+#                 client_id = os.getenv('CLIENT_ID_'+str(a))
+#                 client_secret = os.getenv('CLIENT_SECRET_'+str(a))
+#                 ms_token = os.getenv('MS_TOKEN_'+str(a))
+#                 access_token_list[a-1] = self.getmstoken(
+#                     client_id, client_secret, ms_token)
 
     def fixlist(self):
         # 随机api序列
@@ -157,7 +158,7 @@ class api(object):
         return fixed_api
 
     # 出现失败情况时发送通知信息
-    def sendmessage(self, i):
+    def sendmessage(self, i, run_times):
         a = 12-i
         local_time = time.strftime('%Y-%m-%d %H:%M:%S')
 
@@ -175,7 +176,7 @@ class api(object):
 #             "uids": [os.getenv("UID")],
 #             "url": os.getenv("url")
 #         }
-        content = "Office365AutoAPI调用存在异常情况！\n调用总数：< font color =\"warning\"> 12 < /font >\n成功个数：< font color =\"warning\"> {} < /font >\n失败个数：< font color =\"warning\"> {} < /font >\n调用时间：< font color =\"warning\"> {} < /font >".format(a, i, local_time)
+        content = "Office365AutoAPI调用存在异常情况！\n调用总数：< font color =\"warning\"> 12 < /font >\n成功个数：< font color =\"warning\"> {} < /font >\n失败个数：< font color =\"warning\"> {} < /font >\n调用持续时长为：< font color =\"warning\"> {}时{}分{}秒 < /font >\n调用时间：< font color =\"warning\"> {} < /font >".format(a, i, run_times[0], run_times[1], run_times[2], local_time)
         data = {
             "msgtype": "markdown",
             "markdown": {
@@ -191,6 +192,9 @@ class api(object):
     def run(self):
         # 实际运行
         self.getaccess()
+        
+        begin_time = time.time()  # 统计时间开始
+        
         print('共'+str(config_list['每次轮数'])+'轮')
         for c in range(1, config_list['每次轮数']+1):
             if config_list['是否启动随机时间'] == 'Y':
@@ -200,32 +204,40 @@ class api(object):
                 if config_list['是否开启各账号延时'] == 'Y':
                     time.sleep(random.randint(
                         config_list['账号延时范围开始'], config_list['账号延时结束']))
-                if a == 1:
-                    print('\n'+'应用/账号 '+str(a)+' 的第'+str(c)+'轮' +
-                          time.asctime(time.localtime(time.time()))+'\n')
-                    if config_list['是否开启随机api顺序'] == 'Y':
-                        print("已开启随机顺序,共12个api")
-                        apilist = self.fixlist()
-                        self.runapi(apilist, a, c)
-                    else:
-                        print("原版顺序,共10个api")
-                        apilist = [5, 9, 8, 1, 20, 24, 23, 6, 21, 22]
-                        self.runapi(apilist, a, c)
+#                 if a == 1:
+                print('\n'+'应用/账号 '+str(a)+' 的第'+str(c)+'轮' +
+                      time.asctime(time.localtime(time.time()))+'\n')
+                if config_list['是否开启随机api顺序'] == 'Y':
+                    print("已开启随机顺序,共12个api")
+                    apilist = self.fixlist()
+                    self.runapi(apilist, a, c)
                 else:
-                    print('\n'+'应用/账号 '+str(a)+' 的第'+str(c)+'轮' +
-                          time.asctime(time.localtime(time.time()))+'\n')
-                    if config_list['是否开启随机api顺序'] == 'Y':
-                        print("已开启随机顺序,共12个api")
-                        apilist = self.fixlist()
-                        self.runapi(apilist, a, c)
-                    else:
-                        print("原版顺序,共10个api")
-                        apilist = [5, 9, 8, 1, 20, 24, 23, 6, 21, 22]
-                        self.runapi(apilist, a, c)
+                    print("原版顺序,共10个api")
+                    apilist = [5, 9, 8, 1, 20, 24, 23, 6, 21, 22]
+                    self.runapi(apilist, a, c)
+#                 else:
+#                     print('\n'+'应用/账号 '+str(a)+' 的第'+str(c)+'轮' +
+#                           time.asctime(time.localtime(time.time()))+'\n')
+#                     if config_list['是否开启随机api顺序'] == 'Y':
+#                         print("已开启随机顺序,共12个api")
+#                         apilist = self.fixlist()
+#                         self.runapi(apilist, a, c)
+#                     else:
+#                         print("原版顺序,共10个api")
+#                         apilist = [5, 9, 8, 1, 20, 24, 23, 6, 21, 22]
+#                         self.runapi(apilist, a, c)
 
+        end_time = time.time()  # 统计时间结束
+        run_time = round(end_time-begin_time)
+        hour = run_time//3600
+        minute = (run_time-3600*hour)//60
+        second = run_time-3600*hour-60*minute
+
+        run_times = [hour ,minute,second]  # hour minute second 
+                       
         f2 = Foo()
         if f2.count != 0:
-            self.sendmessage(f2.count)
+            self.sendmessage(f2.count, run_times)
             #pass
 
 
