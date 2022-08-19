@@ -162,9 +162,9 @@ class api(object):
         a = 12-i
         local_time = time.strftime('%Y-%m-%d %H:%M:%S')
 
-        barkurl = os.getenv("url_bark") + \
-            "Office365API调用存在失败情况，失败个数为{}，成功个数为{}。调用结束时间为{}".format(
-                i, a, local_time)
+#        barkurl = os.getenv("url_bark") + \
+#            "Office365API调用存在失败情况，失败个数为{}，成功个数为{}。调用结束时间为{}".format(
+#                i, a, local_time)  # bark通知相关配置
 
 #         body = {
 #             "appToken": os.getenv("appToken"),
@@ -185,7 +185,7 @@ class api(object):
         }
 
         urla = os.getenv("url_wechat")
-        requests.get(barkurl)
+#        requests.get(barkurl)  # 暂时禁用bark通知
         s = requests.session()
         s.post(urla,data=json.dumps(data), verify=False)
 
