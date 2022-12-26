@@ -1,0 +1,41 @@
+# This is a basic workflow to help you get started with Actions
+
+
+name: AutoRun
+
+on:
+  release:
+    types: [published]
+  schedule:
+    - cron: '0 8-18 * * 1-6'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Install requests and nacl #安装requests模块
+      run: |
+        pip install requests
+    - name: run api #api调用
+      env: 
+        #github的账号信息
+        GH_TOKEN: ${{ secrets.GH_TOKEN }} 
+        GH_REPO: ${{ github.repository }}
+        #以下是微软的账号信息
+        APP_NUM: ${{ secrets.APP_NUM }} 
+        #账号/应用1
+        MS_TOKEN: ${{ secrets.MS_TOKEN }} 
+        CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+        #发送信息
+        url_bark: ${{ secrets.URL_BARK }}
+        url_wechat: ${{ secrets.URL_WECHAT }}
+        url: ${{ secrets.URL }}
+        appToken: ${{ secrets.APPTOKEN }}
+        UID: ${{ secrets.UID }}
+        #topicIds: ${{ topicIds }}
+      run: |
+        python index.py
+    # Steps represent a sequence of tasks that will be executed as part of the job
