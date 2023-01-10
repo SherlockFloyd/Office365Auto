@@ -71,7 +71,7 @@ AutoApi 系列：~~AutoApi~~、AutoApiSecret、~~AutoApiSR、AutoApiS~~、AutoAp
 
 - **第三步，新建 secret**
 
-  - 1）依次点击页面上栏右边的 Setting -> 左栏 Secrets -> 右上 New repository secret，新建 4 个 secret： **GH_TOKEN、MS_TOKEN、CLIENT_ID、CLIENT_SECRET**
+  - 1）依次点击页面上栏右边的 Setting -> 左栏 Secrets -> 选择Action -> 右上 New repository secret，新建 4 个 secret： **GH_TOKEN、MS_TOKEN、CLIENT_ID、CLIENT_SECRET**
 
     **(以下填入内容注意前后不要有空格空行)**
 
