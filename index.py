@@ -17,7 +17,7 @@ access_token_list = ['fengshaopeng']*int(app_num)
 
 # 配置选项，自由选择
 config_list = {'每次轮数': 6,
-               '是否启动随机时间': 'Y', '延时范围起始': 60, '结束': 120,
+               '是否启动随机时间': 'N', '延时范围起始': 60, '结束': 120,
                '是否开启随机api顺序': 'Y',
                '是否开启各api延时': 'N', 'api延时范围开始': 2, 'api延时结束': 5,
                '是否开启各账号延时': 'N', '账号延时范围开始': 60, '账号延时结束': 120,
@@ -188,6 +188,14 @@ class api(object):
 #        requests.get(barkurl)  # 暂时禁用bark通知
         s = requests.session()
         s.post(urla,data=json.dumps(data), verify=False)
+        
+        # Telegram 提醒功能，通过GET方法实现
+        telegram_url = "https://api.telegram.org/bot"
+        telegram_token = os.getenv("TOKEN_TELEGRAM")
+        telegram_chat_ID = os.getenv("CHAT_ID_TELEGRAM")
+        telegram_text = "Office365AutoAPI调用存在异常情况！\n调用总数： 12 \n成功个数： {} \n失败个数： {} \n调用持续时长为： {}时{}分{}秒 \n调用时间： {} (UTC) ".format(a, i, run_times[0], run_times[1], run_times[2], local_time)
+        telegram_address = telegram_url + telegram_token +"/sendMessage?chat_id=-"+ telegram_chat_ID +"&text="+ telegram_text
+        requests.get(telegram_address, verify=False)
 
     def run(self):
         # 实际运行
@@ -236,9 +244,8 @@ class api(object):
         run_times = [hour ,minute,second]  # hour minute second 
                        
         f2 = Foo()
-        if f2.count != 0:
+        if f2.count == 0:
             self.sendmessage(f2.count, run_times)
-            #pass
 
 
 # def main_handler(event, context):
