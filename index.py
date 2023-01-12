@@ -203,7 +203,7 @@ class api(object):
         print("用户ID调用")
         telegram_text = "Office365AutoAPI调用存在异常情况！\n调用总数： 12 \n成功个数： {} \n失败个数： {} \n调用持续时长为： {}时{}分{}秒 \n调用时间： {} (UTC) ".format(a, i, run_times[0], run_times[1], run_times[2], local_time)
         telegram_address = telegram_url + telegram_token +"/sendMessage?chat_id=-"+ telegram_chat_ID +"&text="+ telegram_text
-        print(telegram_addres)
+        print(telegram_address)
         print("完整网址调用")
         requests.get(telegram_address)
 
