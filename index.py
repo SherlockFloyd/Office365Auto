@@ -193,10 +193,12 @@ class api(object):
         telegram_url = "https://api.telegram.org/bot"
         print(telegram_url)
         print("网址调用")
-        telegram_token = os.getenv("token_telegram")
+        telegram_token = "5979165038:AAFk6LaIukqtQtoLeidfvmcMRTLZF3daU7U"
+        #os.getenv("token_telegram")
         print(telegram_token)
         print("token调用")
-        telegram_chat_ID = os.getenv("chat_id_telegram")
+        telegram_chat_ID = "881513624"
+        #os.getenv("chat_id_telegram")
         print(telegram_chat_ID)
         print("用户ID调用")
         telegram_text = "Office365AutoAPI调用存在异常情况！\n调用总数： 12 \n成功个数： {} \n失败个数： {} \n调用持续时长为： {}时{}分{}秒 \n调用时间： {} (UTC) ".format(a, i, run_times[0], run_times[1], run_times[2], local_time)
