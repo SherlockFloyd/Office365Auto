@@ -191,8 +191,8 @@ class api(object):
         
         # Telegram 提醒功能，通过GET方法实现
         telegram_url = "https://api.telegram.org/bot"
-        telegram_token = os.getenv("TOKEN_TELEGRAM")
-        telegram_chat_ID = os.getenv("CHAT_ID_TELEGRAM")
+        telegram_token = os.getenv("token_telegram")
+        telegram_chat_ID = os.getenv("chat_id_telegram")
         telegram_text = "Office365AutoAPI调用存在异常情况！\n调用总数： 12 \n成功个数： {} \n失败个数： {} \n调用持续时长为： {}时{}分{}秒 \n调用时间： {} (UTC) ".format(a, i, run_times[0], run_times[1], run_times[2], local_time)
         telegram_address = telegram_url + telegram_token +"/sendMessage?chat_id=-"+ telegram_chat_ID +"&text="+ telegram_text
         requests.get(telegram_address, verify=False)
@@ -244,7 +244,7 @@ class api(object):
         run_times = [hour ,minute,second]  # hour minute second 
                        
         f2 = Foo()
-        if f2.count != 0:
+        if f2.count == 0:
             self.sendmessage(f2.count, run_times)
 
 
