@@ -193,7 +193,7 @@ class api(object):
         telegram_url = "https://api.telegram.org/bot"
         print(telegram_url)
         print("网址调用")
-        telegram_token = "5979165038:AAFk6LaIukqtQtoLeidfvmcMRTLZF3daU7U"
+        telegram_token = os.getenv("tel_token")
         #os.getenv("token_telegram")
         print(telegram_token)
         print("token调用")
