@@ -254,8 +254,9 @@ class api(object):
         run_times = [hour ,minute,second]  # hour minute second 
                        
         f2 = Foo()
-        if f2.count == 0:
-            self.sendmessage(f2.count, run_times)
+        self.sendmessage(f2.count, run_times)
+        #if f2.count == 0:
+            #self.sendmessage(f2.count, run_times)
 
 
 # def main_handler(event, context):
