@@ -35,6 +35,8 @@ jobs:
         url: ${{ secrets.URL }}
         appToken: ${{ secrets.APPTOKEN }}
         UID: ${{ secrets.UID }}
+        telegram_token: ${{ secrets.TELEGRAM_TOKEN }}
+        telegram_chat_id: ${{ secrets.TELEGRAM_CHAT_ID }}
         #topicIds: ${{ topicIds }}
       run: |
         python index.py
