@@ -13,6 +13,11 @@ AutoApi 系列：~~AutoApi~~、AutoApiSecret、~~AutoApiSR、AutoApiS~~、AutoAp
 - **不保证续期**
 - 设置了**周日(UTC 时间)不启动**自动调用
 
+## 注意事项
+
+- 通过python的requests类的请求方法实现信息推送，目前已用企业微信和Telegram的API实现错误信息推送，调用请求时将关键的token信息写入环境变量
+- 添加系统环境变量时要在自动运行脚本yum文件中写入调用参数，否则无法调用
+
 ### 跳转
 
 - Cron：https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-timer?tabs=in-process&pivots=programming-language-python
