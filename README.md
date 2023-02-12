@@ -20,7 +20,7 @@ AutoApi 系列：~~AutoApi~~、AutoApiSecret、~~AutoApiSR、AutoApiS~~、AutoAp
 
 ### 跳转
 
-- Cron：https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-timer?tabs=in-process&pivots=programming-language-python
+- Cron定时调用编写格式文档：https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-timer?tabs=in-process&pivots=programming-language-python
 - Azure注册地址：https://portal.azure.com
 
 ## 步骤
@@ -146,7 +146,7 @@ index.py 文件开头有个 config_list，里面是以下参数配置
 
 ---
 
-## 额外设置 （看不懂请忽略）##
+## 额外设置 （看不懂请忽略）
 
 - **定时启动修改**
 
