@@ -92,9 +92,16 @@ class api(object):
         jsontxt = json.loads(html.text)
 
         print(jsontxt)
+        try:
+            access_token = jsontxt['access_token']
+            return access_token
+        except KeyError:
+            print("未识别到access_token，可能ms_token已过期！")
+            # 发送错误信息
+            return -1
 
-        access_token = jsontxt['access_token']
-        return access_token
+        #access_token = jsontxt['access_token']
+        #return access_token
 
     # # 更新微软refresh_token
     # def updata(self):
@@ -139,6 +146,8 @@ class api(object):
             ms_token = os.getenv('MS_TOKEN')
             access_token_list[a-1] = self.getmstoken(
                 client_id, client_secret, ms_token)
+            if access_token_list[a-1] == -1:
+                return -1
 #             else:
 #                 client_id = os.getenv('CLIENT_ID_'+str(a))
 #                 client_secret = os.getenv('CLIENT_SECRET_'+str(a))
@@ -162,20 +171,7 @@ class api(object):
         a = 12-i
         local_time = time.strftime('%Y-%m-%d %H:%M:%S')
 
-#        barkurl = os.getenv("url_bark") + \
-#            "Office365API调用存在失败情况，失败个数为{}，成功个数为{}。调用结束时间为{}".format(
-#                i, a, local_time)  # bark通知相关配置
-
-#         body = {
-#             "appToken": os.getenv("appToken"),
-#             # 信息内容
-#             "content": "Office365API调用存在失败情况，\n失败个数为{}，成功个数为{}。\n调用结束时间为{}。\n若非本人操作请尽快登录腾讯云服务器进行查看管理。\n腾讯云管理链接如下。".format(i, a, local_time),
-#             "summary": config_list['summary'],
-#             "contentType": int(config_list['contentType']),
-#             # "topicIds": config['topicIds'],
-#             "uids": [os.getenv("UID")],
-#             "url": os.getenv("url")
-#         }
+        # 企业微信通知
         content = "Office365AutoAPI调用存在异常情况！\n调用总数：< font color =\"warning\"> 12 < /font >\n成功个数：< font color =\"warning\"> {} < /font >\n失败个数：< font color =\"warning\"> {} < /font >\n调用持续时长为：< font color =\"warning\"> {}时{}分{}秒 < /font >\n调用时间：< font color =\"warning\"> {} (UTC) < /font >".format(a, i, run_times[0], run_times[1], run_times[2], local_time)
         data = {
             "msgtype": "markdown",
@@ -185,7 +181,6 @@ class api(object):
         }
 
         urla = os.getenv("url_wechat")
-#        requests.get(barkurl)  # 暂时禁用bark通知
         s = requests.session()
         s.post(urla,data=json.dumps(data), verify=False)
         
@@ -193,13 +188,23 @@ class api(object):
         telegram_url = "https://api.telegram.org/bot"
         telegram_token = os.getenv("telegram_token")
         telegram_chat_ID = os.getenv("telegram_chat_id")
-        telegram_text = "Office365AutoAPI调用存在异常情况！\n调用总数： 12 \n成功个数： {} \n失败个数： {} \n调用持续时长为： {}时{}分{}秒 \n调用时间： {} (UTC) ".format(a, i, run_times[0], run_times[1], run_times[2], local_time)
+        if i != 12:
+            telegram_text = "Office365AutoAPI调用存在异常情况！\n调用总数： 12 \n成功个数： {} \n失败个数： {} \n调用持续时长为： {}时{}分{}秒 \n调用时间： {} (UTC) ".format(a, i, run_times[0], run_times[1], run_times[2], local_time)
+        else:
+            telegram_text = "Office365调用token失效，请及时更新token！\n调用总数： 12 \n成功个数： {} \n失败个数： {} \n调用持续时长为： {}时{}分{}秒 \n调用时间： {} (UTC) ".format(a, i, run_times[0], run_times[1], run_times[2], local_time)
+        
         telegram_address = telegram_url + telegram_token +"/sendMessage?chat_id=-"+ telegram_chat_ID +"&text="+ telegram_text
         requests.get(telegram_address)
 
     def run(self):
         # 实际运行
-        self.getaccess()
+        # 首先判断token是否都能够正常工作
+        run_time_temp = [0, 0, 0]  # hour minute second
+        if self.getaccess() == -1:
+            self.sendmessage(12,run_time_temp)
+            return
+        
+        #self.getaccess()
         
         begin_time = time.time()  # 统计时间开始
         
