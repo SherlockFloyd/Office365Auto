@@ -91,7 +91,7 @@ class api(object):
             'https://login.microsoftonline.com/common/oauth2/v2.0/token', data=data, headers=self.headers)
         jsontxt = json.loads(html.text)
 
-        print(jsontxt)
+        #print(jsontxt)
         try:
             access_token = jsontxt['access_token']
             return access_token
