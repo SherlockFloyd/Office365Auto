@@ -58,7 +58,7 @@ AutoApi 系列：~~AutoApi~~、AutoApiSecret、~~AutoApiSR、AutoApiS~~、AutoAp
 - **第二步，获取 refresh_token(微软密钥)**
 
   - 1）rclone.exe 所在文件夹，shift+右键，在此处打开 powershell，输入下面**修改后**的内容，回车后跳出浏览器，登入 e5 账号，点击接受，回到 powershell 窗口，看到一串东西。
-              ./rclone authorize "onedrive" "应用程序(客户端)ID" "应用程序密码"
+                ./rclone authorize "onedrive" "应用程序(客户端)ID" "应用程序密码"
 
   - 2）在那一串东西里找到 "refresh_token"：" ，从双引号开始选中到 ","expiry":2022 为止（就是 refresh_token 后面双引号里那一串，不要双引号），右键复制保存（**获得了微软密钥**）
 
@@ -141,6 +141,14 @@ index.py 文件开头有个 config_list，里面是以下参数配置
             这个是每个账号/应用之间要不要开启延时。后面两参数参考“随机时间”
 
 （延时的设置是会延长运行时间的，全关闭大概每次运行 1min，开启就会适当延长）
+
+### 常态化设置
+-每三个月需要更新一次MS_Token
+  - 1）下载rclone并进入rclone.exe 所在文件夹，shift+右键，在此处打开 powershell，输入下面**修改后**的内容，回车后跳出浏览器，登入 e5 账号，点击接受，回到 powershell 窗口，看到一串东西。
+                ./rclone authorize "onedrive" "应用程序(客户端)ID" "应用程序密码"
+应用程序ID和应用程序密码存储在支付宝中（本人的）
+  - 2）在那一串东西里找到 "refresh_token"：" ，从双引号开始选中到 ","expiry":2023 为止（就是 refresh_token 后面双引号里那一串，不要双引号），右键复制保存（**获得了微软密钥**）
+  - 3）依次点击页面上栏右边的 Setting -> 左栏 Secrets -> 选择Action -> 点击MS_TOKEN的修改按钮，填入新的token值，保存
 
 ### 教程完
 
