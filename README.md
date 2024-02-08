@@ -16,7 +16,7 @@ AutoApi 系列：~~AutoApi~~、AutoApiSecret、~~AutoApiSR、AutoApiS~~、AutoAp
 ## 注意事项
 
 - 通过python的requests类的请求方法实现信息推送，目前已用企业微信和Telegram的API实现错误信息推送，调用请求时将关键的token信息写入环境变量
-- 添加系统环境变量时要在自动运行脚本yum文件中写入调用参数，否则无法调用
+- 添加系统环境变量时要在自动运行脚本yum文件中写入调用参数，否则无法调用, 若无需信息推送请看最后注意事项。
 
 ### 跳转
 
@@ -58,9 +58,10 @@ AutoApi 系列：~~AutoApi~~、AutoApiSecret、~~AutoApiSR、AutoApiS~~、AutoAp
 - **第二步，获取 refresh_token(微软密钥)**
 
   - 1）rclone.exe 所在文件夹，shift+右键，在此处打开 powershell，输入下面**修改后**的内容，回车后跳出浏览器，登入 e5 账号，点击接受，回到 powershell 窗口，看到一串东西。
-                ./rclone authorize "onedrive" "应用程序(客户端)ID" "应用程序密码"
-
-  - 2）在那一串东西里找到 "refresh_token"：" ，从双引号开始选中到 ","expiry":2022 为止（就是 refresh_token 后面双引号里那一串，不要双引号），右键复制保存（**获得了微软密钥**）
+  ```base
+      ./rclone authorize "onedrive" "应用程序(客户端)ID" "应用程序密码"
+  ```
+  - 2）在那一串东西里找到 "refresh_token"：" ，从双引号开始选中到 ","expiry":2024 为止（就是 refresh_token 后面双引号里那一串，不要双引号），右键复制保存（**获得了微软密钥**）
 
 ---
 
@@ -146,14 +147,13 @@ index.py 文件开头有个 config_list，里面是以下参数配置
 -每三个月需要更新一次MS_Token
   - 1）下载rclone并进入rclone.exe 所在文件夹，shift+右键，在此处打开 powershell，输入下面**修改后**的内容，回车后跳出浏览器，登入 e5 账号，点击接受，回到 powershell 窗口，看到一串东西。
                 ./rclone authorize "onedrive" "应用程序(客户端)ID" "应用程序密码"
-应用程序ID和应用程序密码存储在支付宝中（本人的）
   - 2）在那一串东西里找到 "refresh_token"：" ，从双引号开始选中到 ","expiry":2023 为止（就是 refresh_token 后面双引号里那一串，不要双引号），右键复制保存（**获得了微软密钥**）
   - 3）依次点击页面上栏右边的 Setting -> 左栏 Secrets -> 选择Action -> 点击MS_TOKEN的修改按钮，填入新的token值，保存
 
 ### 教程完
 
 #### 注意事项
--index中的--“出现失败情况时发送通知信息”--部分代码及其调用代码删除即可，或者根据自己的需求自行添加相应的环境变量实现信息自动推送，不删除能够正常调用，但是当某个API出现调用失败的时候会终止任务执行，GitHub Action会显示错误。
+-若无需信息推送服务，将index中的--“出现失败情况时发送通知信息”--部分代码函数体设置为pass或者删除该方法及其调用代码，或者根据自己的需求自行添加相应的环境变量实现信息自动推送，不删除能够正常调用，但是当某个API出现调用失败的时候会终止任务执行，GitHub Action会显示错误。
 
 ---
 
