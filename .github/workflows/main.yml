@@ -8,14 +8,8 @@ on:
   push:
     tags:
     - 'v*'
- # schedule:
- #   - cron: '0 8-18 * * 1-6'
   watch:
     types: [started]
-  #push:
-   # branches: [ main ]
-  #pull_request:
-    #branches: [ main ]
 
 jobs:
   build:
@@ -23,29 +17,34 @@ jobs:
     if: github.event.repository.owner.id == github.event.sender.id  # 自己点的 start
     steps:
     - name: Checkout
-      uses: actions/checkout@master
-    - name: Install requests and nacl #安装requests模块
+      uses: actions/checkout@v2  # 使用具体的版本而不是 master
+
+    - name: Set up Python
+      uses: actions/setup-python@v2  # 设置 Python 环境
+      with:
+        python-version: '3.8'  # 指定 Python 版本，可以根据需要调整
+
+    - name: Install requests and nacl  # 安装 requests 模块
       run: |
-        pip install requests
-    - name: run api #api调用
+        python -m pip install --upgrade pip  # 升级 pip
+        pip install requests  # 安装 requests
+        pip install pynacl  # 如果需要 nacl，可以在此安装
+
+    - name: Run API  # API 调用
       env: 
-        #github的账号信息
+        # GitHub 的账号信息
         GH_TOKEN: ${{ secrets.GH_TOKEN }} 
         GH_REPO: ${{ github.repository }}
-        #以下是微软的账号信息
+        # 以下是微软的账号信息
         APP_NUM: ${{ secrets.APP_NUM }} 
-        #账号/应用1
         MS_TOKEN: ${{ secrets.MS_TOKEN }} 
         CLIENT_ID: ${{ secrets.CLIENT_ID }}
         CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-        #发送信息
+        # 发送信息
         url_bark: ${{ secrets.URL_BARK }}
         url_wechat: ${{ secrets.URL_WECHAT }}
         url: ${{ secrets.URL }}
         appToken: ${{ secrets.APPTOKEN }}
         UID: ${{ secrets.UID }}
-        #topicIds: ${{ topicIds }}
       run: |
         python index.py
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
