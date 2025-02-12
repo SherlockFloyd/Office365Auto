@@ -146,8 +146,11 @@ index.py 文件开头有个 config_list，里面是以下参数配置
 ### 常态化设置
 -每三个月需要更新一次MS_Token
   - 1）下载rclone并进入rclone.exe 所在文件夹，shift+右键，在此处打开 powershell，输入下面**修改后**的内容，回车后跳出浏览器，登入 e5 账号，点击接受，回到 powershell 窗口，看到一串东西。
-                ./rclone authorize "onedrive" "应用程序(客户端)ID" "应用程序密码"
-  - 2）在那一串东西里找到 "refresh_token"：" ，从双引号开始选中到 ","expiry":2023 为止（就是 refresh_token 后面双引号里那一串，不要双引号），右键复制保存（**获得了微软密钥**）
+    ```./rclone authorize "onedrive" "应用程序(客户端)ID" "应用程序密码"```
+    Mac用户首先通过brew下载rclone
+    ```brew install rclone```
+    然后在终端中输入上述修改后的命令接着操作即可
+  - 2）在那一串东西里找到 "refresh_token"：" ，从双引号开始选中到 ","expiry":2025 为止（就是 refresh_token 后面双引号里那一串，不要双引号），右键复制保存（**获得了微软密钥**）
   - 3）依次点击页面上栏右边的 Setting -> 左栏 Secrets -> 选择Action -> 点击MS_TOKEN的修改按钮，填入新的token值，保存
 
 ### 教程完
