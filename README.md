@@ -2,8 +2,6 @@
 
 自动调用Azure接口实现对Office365E5续订
 
-本项目不授权任何商业用途，仅个人学习交流使用
-
 # AutoApiP
 
 AutoApi 系列：~~AutoApi~~、AutoApiSecret、~~AutoApiSR、AutoApiS~~、AutoApiP
